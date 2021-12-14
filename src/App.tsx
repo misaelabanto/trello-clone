@@ -1,24 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { List, ListProps } from './list/list';
 
 function App() {
+  const [lists, setLists] = useState<ListProps[]>([
+    {
+      name: 'Pendiente',
+      cards: [{
+        title: 'Realizar demo'
+      }],
+    },
+    {
+      name: 'Hecho',
+      cards: [{
+        title: 'Realizar presentación'
+      }],
+    }
+  ]);
+  const onCardAdded = (listIndex: number, cardTitle: string) => {
+
+  }
+  useEffect(() => {
+    setLists([...lists]);
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='board'>
+      {lists.map(list => <List />)}
     </div>
   );
 }
