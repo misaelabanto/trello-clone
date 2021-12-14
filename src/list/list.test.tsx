@@ -73,9 +73,11 @@ describe('List Component', () => {
       },
     });
     fireEvent.keyPress(inputFound, {
-      target: {
-        key: 'Enter',
-      }
-    })
+      key: 'Enter',
+      keyCode: 13,
+    });
+    expect(onCardAdded).toHaveBeenCalledWith({
+      title: 'Nueva tarjeta agregada'
+    } as CardProps)
   })
 })
