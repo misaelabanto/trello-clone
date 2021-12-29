@@ -8,7 +8,6 @@ export interface InputProps {
 
 export const Input: React.FC<InputProps> = (props) => {
   const onPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    event.preventDefault();
     if (event.key === 'Enter') {
       props.onEnter?.(event.currentTarget.value);
     }

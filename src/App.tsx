@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { List, ListProps } from './list/list';
+import { CardProps } from './card/card';
 
 function App() {
   const [lists, setLists] = useState<ListProps[]>([
@@ -18,15 +19,26 @@ function App() {
       }],
     }
   ]);
-  const onCardAdded = (listIndex: number, cardTitle: string) => {
-
+  const onCardAdded = (listIndex: number, card: CardProps) => {
+    console.log('ADDED');
+    const list = lists[listIndex];
+    console.log(list);
+    list.cards = list.cards?.concat(card);
+    setLists([...lists]);
   }
   useEffect(() => {
     setLists([...lists]);
   }, [])
   return (
-    <div className='board'>
-      {lists.map(list => <List />)}
+    <div style={{ display: 'flex' }}>
+      {lists.map((list, index) => (
+        <List
+          key={list.name! + index}
+          name={list.name}
+          cards={list.cards}
+          onCardAdded={card => onCardAdded(index, card)}
+        />
+      ))}
     </div>
   );
 }
